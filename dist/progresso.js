@@ -1,9 +1,9 @@
 /*
- *  jquery-boilerplate - v3.5.0
- *  A jump-start for jQuery plugins development.
- *  http://jqueryboilerplate.com
+ *  ProgressoJS - v0.0.1
+ *  A lightweight, accurate jQuery plugin for preloading assets and displaying progress.
+ *  http://seanmichael.me
  *
- *  Made by Zeno Rocha
+ *  Made by Sean Michael
  *  Under MIT License
  */
 ;(function ( $, window, document, undefined ) {
@@ -15,15 +15,17 @@
 		// --------------------------------------------------
 		var pluginName = "progresso",
 			defaults = {
-				propertyName: "value"
+				output: "integer"
 			};
 
 		// --------------------------------------------------
 		// CONSTRUCTOR
 		// --------------------------------------------------
-		function Progresso ( element, options ) {
+		function Progresso ( options ) {
 			this.element = element;
 			this.settings = $.extend( {}, defaults, options );
+			this.progress = 0;
+			this.assets = [];
 			this._defaults = defaults;
 			this._name = pluginName;
 			this.init();
@@ -34,10 +36,31 @@
 		// --------------------------------------------------	
 		$.extend(Progresso.prototype, {
 			init: function () {
-				this.yourOtherFunction(this.element, this.settings);
+				getAssets();
 			},
-			yourOtherFunction: function () {
-				// some logic
+			getAssets: function() {
+				$element.find('*:not(script)').each(function() {
+					var url = "";
+					if ($(this).css('background-image').indexOf('none') == -1 && $(this).css('background-image').indexOf('linear-gradient') == -1) {
+
+						url = $(this).css('background-image');
+						if(url.indexOf('url') != -1) {
+							var temp = url.match(/url\((.*?)\)/);
+							url = temp[1].replace(/\"/g, '');
+						}
+					
+					} else 
+					if($(this).get(0).nodeName.toLowerCase() == 'img' && typeof($(this).attr('src')) != 'undefined') {
+						url = $(this).attr('src');
+					}
+					
+					if (url.length > 0) {
+						items.push(url);
+					}
+
+				});
+
+				return items;
 			}
 		});
 

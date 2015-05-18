@@ -17,6 +17,15 @@ module.exports = function(grunt) {
 				" */\n"
 		},
 
+		// SASS definitions
+		sass: {
+      dist: {
+        files: {
+          'demo/assets/main.css': 'demo/assets/scss/main.scss'
+        }
+      }
+    },
+
 		// Concat definitions
 		concat: {
 			options: {
@@ -48,21 +57,20 @@ module.exports = function(grunt) {
 		},
 
 		// watch for changes to source
-		// Better than calling grunt a million times
-		// (call 'grunt watch')
 		watch: {
-		    files: ['src/*'],
-		    tasks: ['default']
+		    files: ['src/*', 'demo/assets/scss/**/*.scss'],
+		    tasks: ['build']
 		}
 
 	});
 
+	grunt.loadNpmTasks("grunt-sass");
 	grunt.loadNpmTasks("grunt-contrib-concat");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 
-	grunt.registerTask("build", ["concat", "uglify"]);
+	grunt.registerTask("build", ["concat", "uglify", "sass"]);
 	grunt.registerTask("default", ["jshint", "build"]);
 	grunt.registerTask("travis", ["default"]);
 
