@@ -4,14 +4,25 @@
 		<title>ProgressoJS - demo</title>
 		<link rel="stylesheet" type="text/css" href="assets/main.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-		<script src="/src/progresso.js"></script>
+		<script src="../dist/progresso.js"></script>
 	</head>
 	<body>
+		<div id="something" style="background-image: url('assets/img/DeathtoStock_London1.jpg');">
+			<!-- <img src="" alt=""> -->
+			<img src="assets/img/DeathtoStock_London2.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London3.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London4.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London5.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London6.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London7.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London8.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London9.jpg" alt="">
+			<img src="assets/img/DeathtoStock_London10.jpg" alt="">
+		</div>
+			
 		<script>
-			$(function() {
-				$("#element").progresso({
-					propertyName: "a custom value"
-				});
+			$(document).ready(function() {
+				$("body").progresso();
 			});
 		</script>
 	</body>
