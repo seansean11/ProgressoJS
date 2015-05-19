@@ -6,14 +6,14 @@
 		// DEFAULTS
 		// --------------------------------------------------
 		var pluginName = "progresso",
-			defaults = {
-				output: "integer"
-			};
+				defaults = {
+					output: "integer"
+				};
 
 		// --------------------------------------------------
 		// CONSTRUCTOR
 		// --------------------------------------------------
-		function Progresso ( options ) {
+		function Progresso ( element, options ) {
 			this.element = element;
 			this.settings = $.extend( {}, defaults, options );
 			this.progress = 0;
@@ -25,34 +25,66 @@
 
 		// --------------------------------------------------
 		// EXTEND PROTOTYPE
-		// --------------------------------------------------	
+		// --------------------------------------------------
 		$.extend(Progresso.prototype, {
+
+			// ---------------------- Initialize plugin
 			init: function () {
-				getAssets();
+				this.getAssets();
 			},
+
+
+			// ---------------------- AJAX request file size
+			getFileSize: function(url) {
+				var xhr = new XMLHttpRequest();
+		    xhr.open("HEAD", url, true);
+		    xhr.onreadystatechange = function() {
+	        if (this.readyState == this.DONE) {
+	        		console.log(parseInt(xhr.getResponseHeader("Content-Length")));
+	        }
+		    };
+		    xhr.send();
+			},
+
+			// ---------------------- Return all assets
 			getAssets: function() {
-				$element.find('*:not(script)').each(function() {
-					var url = "";
-					if ($(this).css('background-image').indexOf('none') == -1 && $(this).css('background-image').indexOf('linear-gradient') == -1) {
+				var _this = this,
+						bgImages = [],
+						inlineImages = [],
+						videos = [],
+						audio = [];
 
-						url = $(this).css('background-image');
-						if(url.indexOf('url') != -1) {
-							var temp = url.match(/url\((.*?)\)/);
-							url = temp[1].replace(/\"/g, '');
-						}
-					
-					} else 
-					if($(this).get(0).nodeName.toLowerCase() == 'img' && typeof($(this).attr('src')) != 'undefined') {
-						url = $(this).attr('src');
-					}
-					
-					if (url.length > 0) {
-						items.push(url);
-					}
+				// CSS IMAGES
+				$(this.element).find('*:not(script)').each(function() {
+					var bgImage = $(this).css('background-image');
 
+					// Make sure it's not a linear-gradient or any other non-image
+					if (bgImage.indexOf('none') === -1 && bgImage.indexOf('url') > -1) {
+						var tempUrl = bgImage.match(/url\((.*?)\)/);
+						var imgObj = {
+							type: 'image', 
+							url: tempUrl[1].replace(/\"/g, '')
+						};
+
+						bgImages.push(imgObj);
+					}
 				});
 
-				return items;
+				// INLINE IMAGES
+				var inlineImages = document.images;
+				for(var i = 0; inlineImages.length > 0; i++) {
+					// var imgObj = {
+					// 	type: 'image',
+					// 	url: tempUrl[1].replace(/\"/g, '')
+					// };
+				}
+
+				// VIDEOS
+
+				// AUDIO
+
+				// SET PROGRESSO ASSETS
+				this.assets = this.assets.concat(bgImages, inlineImages, videos, audio);
 			}
 		});
 
