@@ -28,8 +28,8 @@
 
 		<script>
 			$("body").progresso({
-				onProgress: function(progress) {
-					var percent = Math.round(progress * 100);
+				onProgress: function(prog) {
+					var percent = Math.round(prog * 100);
 					$('.loading-amount').text(percent);
 				}
 			});
