@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 
 		browserSync: {
 		  bsFiles: {
-		    src : ["demo/assets/*.css", "demo/assets/js/progresso.js"]
+		    src : ["demo/assets/*.css", "demo/assets/js/progresso.js", "demo/*.html"]
 		  },
 		  options: {
 				watchTask: true,
