@@ -7,11 +7,14 @@
 		<script src="assets/js/progresso.js"></script>
 	</head>
 	<body>
+		<div class="loading-overlay">
+			<span class="loading-percent"><span class="loading-amount">0</span>%</span>
+		</div>
 		<div class="progresso" data-src-css="assets/img/DeathtoStock_London1.jpg">
-			<!-- <video width="320" height="240" controls>
+			<video width="320" height="240" controls>
 			  <source class="progresso" data-src="assets/vid/small.mp4" type="video/mp4">
 			  <source class="progresso" data-src="assets/vid/small.ogv" type="video/ogg">
-			</video> -->
+			</video>
 			<img class="progresso" data-src="assets/img/DeathtoStock_London2.jpg" alt="">
 			<img class="progresso" data-src="assets/img/DeathtoStock_London3.jpg" alt="">
 			<img class="progresso" data-src="assets/img/DeathtoStock_London4.jpg" alt="">
@@ -24,7 +27,12 @@
 		</div>
 
 		<script>
-			$("body").progresso();
+			$("body").progresso({
+				onProgress: function(progress) {
+					var percent = Math.round(progress * 100);
+					$('.loading-amount').text(percent);
+				}
+			});
 		</script>
 	</body>
 </html>
