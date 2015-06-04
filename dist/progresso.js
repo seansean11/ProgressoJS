@@ -48,7 +48,7 @@
 		    xhr.open("HEAD", url, true);
 		    xhr.onreadystatechange = function() {
 	        if (this.readyState == this.DONE) {
-	        		console.log(parseInt(xhr.getResponseHeader("Content-Length")));
+	          return parseInt(xhr.getResponseHeader("Content-Length"));
 	        }
 		    };
 		    xhr.send();
@@ -73,7 +73,8 @@
 							type: 'image', 
 							url: tempUrl[1].replace(/\"/g, '')
 						};
-
+						// var test = _this.getFileSize(imgObj.url);
+						// console.log(test);
 						bgImages.push(imgObj);
 					}
 				});
@@ -81,10 +82,10 @@
 				// INLINE IMAGES
 				var inlineImages = document.images;
 				for(var i = 0; inlineImages.length > 0; i++) {
-					// var imgObj = {
-					// 	type: 'image',
-					// 	url: tempUrl[1].replace(/\"/g, '')
-					// };
+					var imgObj = {
+						type: 'image',
+						url: tempUrl[1].replace(/\"/g, '')
+					};
 				}
 
 				// VIDEOS
@@ -93,6 +94,7 @@
 
 				// SET PROGRESSO ASSETS
 				this.assets = this.assets.concat(bgImages, inlineImages, videos, audio);
+				console.log(this.assets);
 			}
 		});
 

@@ -33,7 +33,8 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: ["src/progresso.js"],
-				dest: "dist/progresso.js"
+				dest: "dist/progresso.js",
+				dest: "demo/assets/js/progresso.js"
 			}
 		},
 
@@ -56,20 +57,33 @@ module.exports = function(grunt) {
 			}
 		},
 
+		browserSync: {
+		  bsFiles: {
+		    src : ["demo/assets/*.css", "demo/assets/js/progresso.js"]
+		  },
+		  options: {
+				watchTask: true,
+		    server: {
+		      baseDir: "./demo/"
+		    }
+		  }
+		},
+
 		// watch for changes to source
 		watch: {
-		    files: ['src/*', 'demo/assets/scss/**/*.scss'],
-		    tasks: ['build']
+		  files: ["src/*", "demo/assets/scss/**/*.scss"],
+		  tasks: ["build"]
 		}
-
 	});
 
 	grunt.loadNpmTasks("grunt-sass");
 	grunt.loadNpmTasks("grunt-contrib-concat");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks("grunt-browser-sync");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 
+	grunt.registerTask("serve", ["browserSync", "watch"]);
 	grunt.registerTask("build", ["concat", "uglify", "sass"]);
 	grunt.registerTask("default", ["jshint", "build"]);
 	grunt.registerTask("travis", ["default"]);
