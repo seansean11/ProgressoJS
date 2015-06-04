@@ -7,7 +7,6 @@
 		// --------------------------------------------------
 		var pluginName = "progresso",
 				defaults = {
-					output: "integer",
 					delay: 250,
 					selector: ".progresso",
 					onProgress: function(progress) { console.log(progress); },
@@ -45,9 +44,6 @@
 
 				setTimeout(function() {
 					var relativeSize = asset.size / _this.totalSize;
-					if(_this.settings.output === 'percent') {
-						relativeSize = relativeSize * 100;
-					}
 
 					_this.progress += relativeSize;
 					_this.settings.onProgress(_this.progress);
@@ -80,19 +76,45 @@
 
 				// BUILD ASSET ARRAY
 				for(var i = 0; i < assetEls.length; i++) {
-					var cssImg = false,
-							url = assetEls[i].getAttribute("data-src");
+					var assetObj,
+							assetType,
+							asset = assetEls[i],
+							url = asset.getAttribute("data-src");
+
 
 					// check for background images
-					if (assetEls[i].getAttribute("data-src-css")) {
-						cssImg = true;
-						url = assetEls[i].getAttribute("data-src-css");
+					if (asset.getAttribute("data-src-css")) {
+						assetType = 'image-css';
+						url = asset.getAttribute("data-src-css");
+					} else
+
+					// check for inline images
+					if (asset.tagName === 'IMG') {
+						assetType = 'image'
+					} else
+
+					// check for videos
+					if (asset.tagName === 'VIDEO') {
+						assetType = 'video'
+					} else
+
+					// check for audio
+					if (asset.tagName === 'AUDIO') {
+						assetType = 'audio'
+					} else
+
+					// check for source files
+					if (asset.tagName === 'SOURCE') {
+						var parent = asset.parentNode.tagName;
+						if(parent === 'VIDEO') assetType = 'video';
+						if(parent === 'AUDIO') assetType = 'audio';
+						if(parent === 'PICTURE') assetType = 'image';
 					}
 
 					// start building asset object
 					var assetObj = {
-						el: assetEls[i],
-						cssImg: cssImg,
+						el: asset,
+						type: assetType,
 						url: url
 					}
 
@@ -100,6 +122,7 @@
 					getFileSize(url, assetObj, function(obj, size) {
 						obj.size = size;
 						_this.totalSize += size;
+						console.log(obj);
 						_this.assets.push(obj);
 					});
 				}
@@ -121,49 +144,38 @@
 				// AJAX LOAD ASSET
 				function ajaxCall() {
 					if (i < assets.length) {
-						var asset = assets[i],
-								elType = asset.el.tagName;
+						var asset = assets[i];
 
-						// // preload image source
-						// if (elType === 'IMG') {
-						// 	var tag = new Image();
-						// 	$(tag).load(function(e) {
-						// 		_this.updateProgress(asset, ajaxCall);
-						// 		$(asset).removeAttr('data-src').css('background-image', 'url(' + asset.url + ')');
-						// 		i++;
-						// 	}).attr('src', asset.url);
-						// }
-						//
-						// // preload video source
-						// if (elType === 'SOURCE') {
-						// 	tag = new Image();
-						// }
-						//
-						// // preload audio source
-						// if (elType === 'AUDIO') {
-						// }
-						//
-						// // preload css background-image
-						// if (asset.cssImg) {
-						// 	var tag = new Image();
-						// 	$(tag).load(function(e) {
-						// 		_this.updateProgress(asset, ajaxCall);
-						// 		$(asset).removeAttr('data-src').css('background-image', 'url(' + asset.url + ')');
-						// 		i++;
-						// 	}).attr('src', asset.url);
-						// }
+						// preload image source
+						if (asset.type === 'image' || asset.type === 'image-css') {
+							var tag = $('<img>');
+							tag.on('load', function() {
+								_this.updateProgress(asset, function() {
+									if(asset.type === 'image-css') {
+										$(asset.el).removeAttr('data-src-css')
+											.css('background-image', 'url(' + asset.url + ')');
+									} else {
+										$(asset.el).removeAttr('data-src')
+											.attr('src', asset.url);
+									}
 
-						$.ajax(asset.url, {
-							success: function(data) {
-								console.log(data);
-								console.log('hello');
-								// _this.updateProgress(asset, ajaxCall);
-								// i++;
-							},
-							error: function() {
-								console.log('error');
-							}
-						})
+									i++; ajaxCall();
+								});
+							}).attr('src', asset.url);
+
+						// preload all other assets
+						} else {
+							var tag = (asset.type === 'video') ? $('<video>') : $('<audio>');
+							tag.on('canplaythrough', function() {
+								_this.updateProgress(asset, function() {
+									$(asset.el).parent().load();
+									$(asset.el).removeAttr('data-src').attr('src', asset.url);
+									i++; ajaxCall();
+								});
+							}).attr('src', asset.url);
+						}
+
+					// recursive loop complete
 					} else if (i === assets.length) {
 						_this.loadComplete();
 					}
