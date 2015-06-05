@@ -1,5 +1,148 @@
 @import "normalize";
 
-.something {
+// ---------- Variables
+$color-tan: #EDE8B7;
+$color-blue: #569FB0;
+$color-green: #65C9B5;
+$color-yellow: #deca20;
+
+html {
+	height: 100%;
+}
+
+body {
+	font-family: 'PT Serif', serif;
+	font-weight: 400;
+	height: 100%;
+	background-attachment: fixed;
+	position: relative;
+	background-image: linear-gradient($color-green, $color-blue);
+	z-index: -1;
+
+	&:after {
+		content: '';
+		z-index: 0;
+		position: absolute;
+		left: 7px; top: 7px; right: 7px; bottom: 7px;
+		background-color: $color-yellow;
+	}
+}
+
+section {
+	position: relative;
+	z-index: 1;
+	margin: 0 7px;
+	padding: 5em 0;
+}
+
+p {
+	line-height: 1.5;
+	color: #222;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'PT Sans', sans-serif;
+	font-weight: 400;
+}
+
+h1 {
+	text-transform: uppercase;
+	font-size: 3.75em;
+	letter-spacing: .075em;
+	font-weight: 700;
+}
+
+h2 {
+	font-size: 2.875em;
+
+	&:before {
+		content:'//';
+		display: inline-block;
+		letter-spacing: -6px;
+		margin-right: .5em;
+		color: $color-green;
+	}
+}
+
+.btn {
+	font-family: 'PT Sans', sans-serif;
+	font-weight: 400;
+	background-color: $color-green;
+	background-image: linear-gradient(145deg, $color-green 0%, $color-blue 100%);
+	display: inline-block;
+	text-align: center;
+	padding: 1em;
+	min-width: 100px;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 2px;
+	border-bottom: 1px solid $color-blue;
+}
+
+.wrapper {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.demo-link {
+	position: fixed;
+	top: 50px; right: 50px;
+	text-decoration: none;
+	font-family: 'PT Sans', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 1px;
 	color: #000;
+	font-weight: 700;
+	z-index: 99;
+
+	&:visited {
+		color: #000;
+	}
+
+	&:after {
+		content: '';
+		display: block;
+		background-image: url(/assets/img/zag.svg);
+		background-size: 47px 15px;
+		width: 47px; height: 15px;
+		margin: 0 auto;
+	}
+}
+
+.hero-banner {
+	@extend .wrapper;
+	text-align: center;
+
+	&__title {
+		font-family: 'PT Serif', serif;
+		margin: 0;
+		padding-bottom: .5em;
+		background: url(/assets/img/texture.png);
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+
+		&:after {
+			content: '';
+			display: block;
+			background-image: url(/assets/img/zag.svg);
+			background-size: 130px 31px;
+			width: 130px; height: 31px;
+			margin: .3em auto 0;
+		}
+	}
+
+	&__text {
+		font-size: 1.625em;
+		max-width: 610px;
+		margin: 0 auto 2em;
+	}
+
+	.btn {
+		margin: 0 .3em;
+	}
+}
+
+.theme-light {
+	background-color: #EDE8B7;
 }
