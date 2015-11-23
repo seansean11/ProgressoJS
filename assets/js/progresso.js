@@ -1,5 +1,5 @@
 /*
- *  ProgressoJS - v0.0.1
+ *  ProgressoJS - v0.1
  *  A lightweight, accurate jQuery plugin for preloading assets and displaying progress.
  *  http://seanmichael.me
  *
@@ -16,7 +16,7 @@
 		var pluginName = "progresso",
 				defaults = {
 					delay: 250,
-					selector: ".progresso",
+					selector: ".js-progresso",
 					onProgress: function(progress) { console.log(progress); },
 					onComplete: function() {},
 				};

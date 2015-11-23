@@ -4,6 +4,8 @@
 		<title>ProgressoJS</title>
 		<link rel="stylesheet" type="text/css" href="assets/main.css">
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+		<script src="/assets/js/highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
 	</head>
 	<body>
 		<a href="demo.html" class="demo-link">Demo</a>
@@ -13,14 +15,81 @@
 				<p class="hero-banner__text">A lightweight, accurate jQuery plugin for preloading assets and displaying progress.</p>
 				<div class="hero-banner__buttons">
 					<a href="" class="btn">download</a>
-					<a href="" class="btn">github</a>
+					<a target="_blank" href="https://github.com/seansean11/ProgressoJS" class="btn">github</a>
 				</div>
 			</div>
 		</section>
 		<section class="theme-light">
 			<div class="wrapper">
+				<div class="sub-section">
 				<h2>Usage</h2>
+					<ol class="usage-steps">
+					<li>
+						<h3>Download the ProgressoJS <a class="underline-link" href="/js/progresso.min.js">progresso.min.js</a> plugin file.</h3>
+					</li>
+					<li>
+						<h3>Load jQuery and include ProgressoJS plugin file</h3>
+<pre><code>&lt;!-- Include jQuery 1.7+ --&gt;
+&lt;script src="https://code.jquery.com/jquery-1.11.3.min.js"&gt;
+
+&lt;!-- Include ProgressoJS plugin --&gt;
+&lt;script src="assets/progresso.min.js"&gt;
+</code></pre>
+						<p>To use ProgressoJS, you’ll need to make sure both the ProgressoJS and jQuery scripts are included in the head of your HTML.</p>
+					</li>
+					<li>
+						<h3>Add <code class="code">js-progresso</code> class and <code class="code">data-src</code> attribute to preloaded elements.</h3>
+<pre><code>&lt;!-- Preloaded Video --&gt;
+&lt;video controls&gt;
+  &lt;source class="js-progresso" data-src="video/example.mp4" type="video/mp4"&gt;
+  &lt;source class="js-progresso" data-src="video/example2.ogv" type="video/ogg"&gt;
+&lt;/video&gt;
+
+&lt;!-- Preloaded Image --&gt;
+&lt;img class="js-progresso" data-src="image/example.jpg"&gt;
+
+&lt;!-- Preloaded Audio --&gt;
+&lt;audio controls&gt;
+  &lt;source class="js-progresso" data-src="audio/example.ogg" type="audio/ogg"&gt;
+  &lt;source class="js-progresso" data-src="audio/example2.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;
+
+&lt;!-- Preloaded Picture --&gt;
+&lt;picture&gt;
+   &lt;source class="js-progresso" data-src="image/example.jpg"&gt;
+   &lt;source class="js-progresso" data-src="image/example2.jpg"&gt;
+&lt;/picture&gt;
+
+&lt;!-- Preloaded CSS Background Image --&gt;
+&lt;div class="js-progresso" data-src-css="image/example.jpg"&gt;
+</code></pre>
+						<p>In order to declare an element for preloading, you must add the <code class="code">js-progresso</code> class. For all assets (aside from CSS background images) you must then declare the file to preload using the <code class="code">data-src</code> attribute.  For CSS background images you must declare the file using the <code class="code">data-src-css</code> attribute.  Note that you do not need to declare the elements real <code class="code">src</code> attribute</p>
+					</li>
+					</ol>
+				</div>
+				<div class="sub-section">
+					<h2>No JavaScript Fallback</h2>
+					<p>If you'd like to support a fallback for users that aren't running JavaScript, you can add the natural element in a <code class="code">noscript</code> tag alongside the ProgressoJS version</p>
+<pre><code>&lt;img class="js-progresso" data-src="img/example.jpg"&gt;
+&lt;noscript&gt;
+    &lt;img src="img/example.jpg"&gt;
+&lt;/noscript&gt;
+</code></pre>
+				</div>
 			</div>
 		</section>
+		<section class="theme-yellow">
+			<div class="wrapper">
+				<div class="sub-section">
+					<h2>Why ProgressoJS?</h2>
+					<p>ProgressoJS is one of the only accurate and declaraitive asset preloaders, which provides you with the tools you need to create your own loading screen animations.  There are other asset preloaders or load animators, but most of them will require you to declare your preloaded assets in the <code class="code">head</code> of your HTML document or may only simulate progress.  ProgressoJS lets you declare your preloaded assets in their natural position in the HTML document, which means that it works with dynamic content and CMS's like WordPress, Drupal, ExpressionEngine, and Craft.  ProgressoJS also taps into the actual sizes of your assets in order to provide you with an accurate progress measure that you can use for CSS or JavaScript animations.</p>
+				</div>
+			</div>
+		</section>
+		<footer class="footer">
+			<div class="wrapper">
+				<p><span>Website: <a target="_blank" href="http://seanmichael.me">http://seanmichael.me</a></span><span>Twitter: <a target="_blank" href="https://twitter.com/senorsean11">@senorsean11</a></span></p>
+			</div>
+		</footer>
 	</body>
 </html>
