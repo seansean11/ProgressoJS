@@ -8,7 +8,7 @@
 		var pluginName = "progresso",
 				defaults = {
 					delay: 250,
-					selector: ".progresso",
+					selector: ".js-progresso",
 					onProgress: function(progress) { console.log(progress); },
 					onComplete: function() {},
 				};
@@ -79,7 +79,7 @@
 					var assetObj,
 							assetType,
 							asset = assetEls[i],
-							url = asset.getAttribute("data-src");
+							url = asset.getAttribute("src");
 
 
 					// check for background images
