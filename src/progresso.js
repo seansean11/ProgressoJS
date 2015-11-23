@@ -79,7 +79,7 @@
 					var assetObj,
 							assetType,
 							asset = assetEls[i],
-							url = asset.getAttribute("src");
+							url = asset.getAttribute("data-src");
 
 
 					// check for background images
