@@ -59,7 +59,8 @@ module.exports = function(grunt) {
 		uglify: {
 			my_target: {
 				src: ["dist/progresso.js"],
-				dest: "dist/progresso.min.js"
+				dest: "dist/progresso.min.js",
+				dest: "demo/assets/js/progresso.min.js"
 			},
 			options: {
 				banner: "<%= meta.banner %>"
