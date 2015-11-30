@@ -676,6 +676,11 @@ h3 {
         -ms-transform: scale(1.04);
             transform: scale(1.04);
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3); }
+  .btn:active {
+    -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+            transform: scale(1);
+    box-shadow: 0 2px 2px transparent; }
 
 .wrapper, .hero-banner {
   max-width: 630px;
