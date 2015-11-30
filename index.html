@@ -29,16 +29,17 @@
 					</li>
 					<li>
 						<h3>Load jQuery and include ProgressoJS plugin file</h3>
+						<p>To use ProgressoJS, you’ll need to make sure both the ProgressoJS and jQuery scripts are included in the head of your HTML.</p>
 <pre><code>&lt;!-- Include jQuery 1.7+ --&gt;
 &lt;script src="https://code.jquery.com/jquery-1.11.3.min.js"&gt;
 
 &lt;!-- Include ProgressoJS plugin --&gt;
 &lt;script src="assets/progresso.min.js"&gt;
 </code></pre>
-						<p>To use ProgressoJS, you’ll need to make sure both the ProgressoJS and jQuery scripts are included in the head of your HTML.</p>
 					</li>
 					<li>
-						<h3>Add <code class="code">js-progresso</code> class and <code class="code">data-src</code> attribute to preloaded elements.</h3>
+						<h3>Add ProgressoJS class and attributes to preload elements.</h3>
+						<p>In order to declare an element for preloading, you must add the <code class="code">js-progresso</code> class. For all assets (aside from CSS background images) you must then declare the file to preload using the <code class="code">data-src</code> attribute.  For CSS background images you must declare the file using the <code class="code">data-src-css</code> attribute.  Note that you do not need to declare the elements real <code class="code">src</code> attribute</p>
 <pre><code>&lt;!-- Preloaded Video --&gt;
 &lt;video controls&gt;
   &lt;source class="js-progresso" data-src="video/example.mp4" type="video/mp4"&gt;
@@ -63,13 +64,27 @@
 &lt;!-- Preloaded CSS Background Image --&gt;
 &lt;div class="js-progresso" data-src-css="image/example.jpg"&gt;
 </code></pre>
-						<p>In order to declare an element for preloading, you must add the <code class="code">js-progresso</code> class. For all assets (aside from CSS background images) you must then declare the file to preload using the <code class="code">data-src</code> attribute.  For CSS background images you must declare the file using the <code class="code">data-src-css</code> attribute.  Note that you do not need to declare the elements real <code class="code">src</code> attribute</p>
+					</li>
+					<li>
+						<h3>Leverage percentage for animations</h3>
+						<p>By utilizing the <code class="code">onProgress</code> callback you can animate css or display your progress percentage on the screen.  You can add your custom script right before the closing <code class="code">body</code> tag.</p>
+<pre><code>&lt;script&gt;
+$("body").progresso({
+  onProgress: function(prog) {
+    var percent = Math.round(prog * 100),
+        percentCss = percent + '%';
+    $('#js-load-amount').text(percent);
+    $('.load-bar').css('height', percentCss);
+  }
+});
+&lt;/script&gt;
+</code></pre>
 					</li>
 					</ol>
 				</div>
 				<div class="sub-section">
 					<h2>No JavaScript Fallback</h2>
-					<p>If you'd like to support a fallback for users that aren't running JavaScript, you can add the natural element in a <code class="code">noscript</code> tag alongside the ProgressoJS version</p>
+					<p>If you'd like to support a fallback for users that aren't running JavaScript, you can add the original element in a <code class="code">noscript</code> tag alongside the ProgressoJS version</p>
 <pre><code>&lt;img class="js-progresso" data-src="img/example.jpg"&gt;
 &lt;noscript&gt;
     &lt;img src="img/example.jpg"&gt;

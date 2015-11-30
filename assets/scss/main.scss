@@ -48,6 +48,8 @@ $color-orange-code: #b58900;
 	100% { background-position: -10px -10px; }
 }
 
+@import "demos";
+
 // ---------- NATIVE EL'S
 * {
 	box-sizing: border-box;
@@ -116,7 +118,7 @@ h2 {
 
 h3 {
 	font-family: 'PT Sans', sans;
-	font-size: 1.3em;
+	font-size: 1.4em;
 	font-weight: 700;
 }
 
@@ -181,8 +183,12 @@ h3 {
 	letter-spacing: 1px;
 	color: #000;
 	font-weight: 700;
-	z-index: 99;
+	z-index: 9;
 	@include media(768px) { top: 40px; right: 50px; }
+
+	&.left {
+		right: auto; left: 30px;
+	}
 
 	&:visited {
 		color: #000;
