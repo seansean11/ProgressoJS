@@ -26,6 +26,15 @@ module.exports = function(grunt) {
       }
     },
 
+    // Autoprefix
+    autoprefixer:{
+      dist:{
+        files:{
+          'demo/assets/main.css':'demo/assets/main.css'
+        }
+      }
+    },
+
 		// Concat definitions
 		concat: {
 			options: {
@@ -82,9 +91,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-browser-sync");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks('grunt-autoprefixer');
 
 	grunt.registerTask("serve", ["browserSync", "watch"]);
-	grunt.registerTask("build", ["concat", "uglify", "sass"]);
+	grunt.registerTask("build", ["concat", "uglify", "sass", "autoprefixer"]);
 	grunt.registerTask("default", ["jshint", "build"]);
 	grunt.registerTask("travis", ["default"]);
 
